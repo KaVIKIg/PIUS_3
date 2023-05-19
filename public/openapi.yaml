@@ -1,0 +1,492 @@
+openapi: 3.0.3
+info:
+  title: Swagger Store - OpenAPI 3.0
+  version: 1.0.11
+servers:
+  - url:  http://127.0.0.1:8000/api/v1/
+    description: Dev server
+paths:
+  /reviews:
+    get:
+      summary: Get all reviews
+      tags:
+        - Reviews
+      operationId: getReviews
+      responses:
+        '200':
+          description: Successful getting reviews
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reviews'  
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Review is not found
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'   
+    post:
+      summary: Create new review
+      tags:
+        - Reviews
+      operationId: createReview
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Review'
+      responses:
+        '201':
+          description: Successful creating of review
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'   
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Review is not found
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'   
+
+  /reviews/{review_id}:
+    get:
+      summary: Get review by Id
+      tags:
+        - Reviews
+      operationId: getReviewById
+      parameters: 
+        - name: review_id
+          in: path
+          required: true
+          description: Id of review
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful getting of review by id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'   
+        '400':
+          description: Invalid ID review
+        '404':
+          description: Review is not found
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'  
+    delete:
+      summary: Delete review by Id
+      tags:
+        - Reviews
+      operationId: deleteReviewById
+      parameters: 
+        - name: review_id
+          in: path
+          required: true
+          description: Id of review
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Successful deleting of review by id
+          content:
+            application/json: {} 
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Review is not found
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'  
+    put:
+      tags:
+        - Reviews
+      summary: Update an existing review by all fields
+      description: Update an existing review by Id
+      operationId: updateReview
+      parameters: 
+        - name: review_id
+          in: path
+          required: true
+          description: Id of review
+          schema:
+            type: string
+      requestBody:
+        description: Update an existent review in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Review'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'     
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Review is not found
+        '405':
+          description: Validation exception
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'  
+    patch:
+      tags:
+        - Reviews
+      summary: Update an existing review by no all fields
+      description: Update an existing review by Id
+      operationId: updateReview
+      parameters: 
+        - name: review_id
+          in: path
+          required: true
+          description: Id of review
+          schema:
+            type: string
+        - name: review
+          in: query
+          description: Review object that needs to be updated
+          required: true
+          schema:
+            $ref: '#/components/schemas/Review'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'          
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Review is not found
+        '405':
+          description: Validation exception
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'  
+                
+  /customers:
+    get:
+      summary: Get all customers
+      tags:
+        - Customers
+      operationId: getCustomers
+      responses:
+        '200':
+          description: Successful getting customers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customers'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Customer is not found
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'   
+    post:
+      summary: Create new customer
+      tags:
+        - Customers
+      operationId: createCustomer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        '201':
+          description: Successful creating of customer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'   
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Customer is not found
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'   
+                
+  /customers/{customer_id}:
+    get:
+      summary: Get customer by Id
+      tags:
+        - Customers
+      operationId: getCustomerById
+      parameters: 
+        - name: customer_id
+          in: path
+          required: true
+          description: Id of customer
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful getting of customer by id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'   
+        '400':
+          description: Invalid ID customer
+        '404':
+          description: Customer is not found
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'  
+    delete:
+      summary: Delete Customer by Id
+      tags:
+        - Customers
+      operationId: deleteCustomerById
+      parameters: 
+        - name: customer_id
+          in: path
+          required: true
+          description: Id of customer
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Successful deleting of customer by id
+          content:
+            application/json: {} 
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Customer is not found
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'  
+    put:
+      tags:
+        - Customers
+      summary: Update an existing category by all fields
+      description: Update an existing category by Id
+      operationId: updateCustomer
+      parameters: 
+        - name: customer_id
+          in: path
+          required: true
+          description: Id of customer
+          schema:
+            type: string
+      requestBody:
+        description: Update an existent customer
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'          
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Category not found
+        '405':
+          description: Validation exception
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'  
+    patch:
+      tags:
+        - Customers
+      summary: Update an existing customer by no all fields
+      description: Update an existing customer by Id
+      operationId: updateCustomer
+      parameters: 
+        - name: customer_id
+          in: path
+          required: true
+          description: Id of customer
+          schema:
+            type: string
+      requestBody:
+        description: Update an existent customer
+        content:
+          application/json: {} 
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'          
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Customer is not found
+        '405':
+          description: Validation exception
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'  
+                
+components:
+  schemas:
+    Review:
+      type: object
+      required:
+        - name
+        - description
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        name:
+          type: string
+          example: review
+        description:
+          type: string
+          example: positive review
+        like:
+          type: integer
+          format: int32
+          example: 5
+        dislike:
+          type: integer
+          format: int32
+          example: 1
+        customer_id:
+          type: integer
+          format: int32
+          example: 11
+        created_at:
+          type: string
+          format: date-time
+        
+    Reviews:
+      type: array
+      items:
+        $ref: "#/components/schemas/Review"
+        
+    Customer:
+      type: object
+      required:
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 11
+        name:
+          type: string
+          example: Kazarina Viktoria
+        purchased:
+          type: integer
+          format: int32
+          example: 5
+        discount:
+          type: integer
+          format:  int32
+          example: 15
+        created_at:
+          type: string
+          format: date-time
+        
+    Customers:
+      type: array
+      items:
+        $ref: "#/components/schemas/Customer"
+        
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+            
