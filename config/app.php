@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Facade;
+use Illuminate\Support\ServiceProvider;
 
 return [
 
@@ -185,7 +186,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+    Ensi\LaravelServeSwagger\ServeSwaggerServiceProvider::class,
         /*
          * Application Service Providers...
          */
